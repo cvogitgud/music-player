@@ -1,21 +1,13 @@
 import { Button, Slider, Stack } from '@mui/material/';
-import {
-  VolumeDown,
-  VolumeUp,
-  SkipNext,
-  SkipPrevious,
-} from '@mui/icons-material';
+import { SkipNext, SkipPrevious } from '@mui/icons-material';
 
 const AudioPlayer = () => {
   return (
-    <div className="player ">
-      <div className="slider-ui">
-        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-          <VolumeDown />
-          <Slider aria-label="Volume" />
-          <VolumeUp />
-        </Stack>
-        <div>
+    <div className="player basis-1/3 mt-5 flex justify-center gap-2 ">
+      <Stack className="w-96">
+        <Slider aria-label="Progress" />
+
+        <div className="buttons">
           <Button>
             <SkipPrevious />
           </Button>
@@ -25,7 +17,7 @@ const AudioPlayer = () => {
             <SkipNext />
           </Button>
         </div>
-      </div>
+      </Stack>
     </div>
   );
 };
