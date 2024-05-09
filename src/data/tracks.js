@@ -1,6 +1,24 @@
-// temporary placeholder for tracks
+// temporary placeholder for tracks, using my own selection of tracks
 
-// if i use spotify api, then do i really need firebase?
-// won't they have their own database i can just draw from
-// and people can search...
-// what is it i really want this app to do? just play music i select/curate, or have it be a music platform?
+// spotify for later
+
+import inyourarms from './tracks/saib. - in your arms..mp3';
+import raw from './tracks/Victoria Justice - RAW.mp3';
+
+import thegardenofwords from './img/thegardenofwords.jpg';
+import raw_thumbnail from './img/Raw.webp';
+
+export const tracks = [
+  {
+    title: 'in your arms.',
+    src: inyourarms,
+    thumbnail: thegardenofwords,
+    artist: 'saib',
+  },
+  {
+    title: 'RAW',
+    src: raw,
+    thumbnail: raw_thumbnail,
+    artist: 'Victoria Justice',
+  },
+];
