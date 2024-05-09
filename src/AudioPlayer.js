@@ -11,8 +11,7 @@ function AudioPlayer() {
   // currently using own database of songs stored in tracks.js
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
 
-  const audioRef = useRef();
-  console.log(audioRef);
+  const audioRef = useRef(currentTrack);
 
   return (
     <div className="App">
@@ -22,7 +21,7 @@ function AudioPlayer() {
         </div>
         <div className="sections flex">
           <div className="info mt-5 basis-1/3">Sidebar? Other pages?</div>
-          <SongDetails currentTrack={currentTrack} audioRef={audioRef} />
+          <SongDetails currentTrack={currentTrack} />
           <TrackList />
         </div>
 

@@ -1,4 +1,4 @@
-import { Button, Stack, LinearProgress, Divider } from '@mui/material/';
+import { Button, Stack } from '@mui/material/';
 import {
   SkipNext,
   SkipPrevious,
@@ -10,6 +10,7 @@ import {
   RepeatOn,
 } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
+import ProgressBar from './ProgressBar';
 
 const Controls = ({ currentTrack, audioRef }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,8 +29,9 @@ const Controls = ({ currentTrack, audioRef }) => {
     setRepeatOn((prev) => !prev);
   };
 
-  // play control
-
+  // Play/Pause control
+  // notes for myself:
+  // we are using useEffect to WATCH for changes to isPlaying and to create an EFFECT based off the value (play or pause)
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
@@ -38,10 +40,6 @@ const Controls = ({ currentTrack, audioRef }) => {
     }
   }, [isPlaying, audioRef]);
 
-  // create function using useEffect to grab the
-  // (current time of the song / duration) * 100
-  let progress = 40;
-
   // add repeat and shuffle!
 
   return (
@@ -49,11 +47,7 @@ const Controls = ({ currentTrack, audioRef }) => {
       <audio src={currentTrack.src} ref={audioRef}></audio>
 
       <Stack className="w-96">
-        <LinearProgress
-          variant="determinate"
-          value={progress}
-          className="mt-3 mb-3 w-96 flex justify-center flex-col"
-        />
+        <ProgressBar audioRef={audioRef} />
 
         <div className="buttons flex justify-evenly">
           <Button className="shuffle-button" onClick={toggleShuffle}>

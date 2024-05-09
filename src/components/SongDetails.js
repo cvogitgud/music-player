@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const SongDetails = ({ currentTrack, audioRef }) => {
+const SongDetails = ({ currentTrack }) => {
   const [title, setTitle] = useState(currentTrack.title);
   const [thumbnail, setThumbnail] = useState(currentTrack.thumbnail);
   const [artist, setArtist] = useState(currentTrack.artist);
