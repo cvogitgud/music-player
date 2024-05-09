@@ -1,7 +1,14 @@
 import { Button, Slider, Stack } from '@mui/material/';
-import { SkipNext, SkipPrevious } from '@mui/icons-material';
+import { SkipNext, SkipPrevious, PlayArrow, Pause } from '@mui/icons-material';
+import { useState } from 'react';
 
 const Controls = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayPause = () => {
+    setIsPlaying((prev) => !prev);
+  };
+
   return (
     <div className="player basis-1/3 mt-5 flex justify-center gap-2 ">
       <Stack className="w-96">
@@ -11,7 +18,9 @@ const Controls = () => {
           <Button>
             <SkipPrevious />
           </Button>
-          <Button className="play-button">Play</Button>
+          <Button className="play-button" onClick={togglePlayPause}>
+            {isPlaying ? <Pause /> : <PlayArrow />}
+          </Button>
           <Button className="pause-button">Pause</Button>
           <Button>
             <SkipNext />
