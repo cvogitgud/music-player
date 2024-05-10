@@ -47,7 +47,7 @@ const Controls = ({ currentTrack, audioRef }) => {
       <audio src={currentTrack.src} ref={audioRef}></audio>
 
       <Stack className="w-96">
-        <ProgressBar audioRef={audioRef} />
+        <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
 
         <div className="buttons flex justify-evenly">
           <Button className="shuffle-button" onClick={toggleShuffle}>
