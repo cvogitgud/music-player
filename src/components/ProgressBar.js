@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react';
 import { LinearProgress } from '@mui/material/';
 
-const ProgressBar = ({ audioRef, isPlaying }) => {
+const ProgressBar = ({ audioRef }) => {
   const [progress, setProgress] = useState(0);
-  const [currentTime, setCurrentTime] = useState(audioRef.current.currentTime);
+  const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(audioRef.current.duration);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(audioRef.current.currentTime);
+      setProgress(
+        (audioRef.current.currentTime / audioRef.current.duration) * 100
+      );
     }, 1000);
 
-    if (!isPlaying) {
-      clearInterval(timer);
-    }
+    // if (!isPlaying) {
+    //   clearInterval(timer);
+    // }
   }, [audioRef.current.currentTime]);
 
   return (
     <div>
-      <p>{currentTime}</p>
+      <p>{currentTime ? currentTime : 0}</p>
       <LinearProgress
         variant="determinate"
         value={progress}
