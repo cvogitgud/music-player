@@ -43,13 +43,13 @@ const Controls = ({ currentTrack, audioRef }) => {
   // add repeat and shuffle!
 
   return (
-    <div className="player basis-1/3 flex justify-center gap-2 ">
+    <div className="player basis-1/3 flex justify-center gap-2">
       <audio src={currentTrack.src} ref={audioRef}></audio>
 
       <Stack className="w-96">
         <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
 
-        <div className="buttons flex justify-evenly">
+        <div className="buttons flex justify-between mt-3">
           <Button className="shuffle-button" onClick={toggleShuffle}>
             {shuffleOn ? <ShuffleOn /> : <Shuffle />}
           </Button>

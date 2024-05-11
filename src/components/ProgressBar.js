@@ -16,14 +16,19 @@ const ProgressBar = ({ audioRef, isPlaying }) => {
     return '00:00';
   };
 
+  let timer = 0;
   useEffect(() => {
-    setInterval(() => {
+    timer = setInterval(() => {
       setCurrentTime(audioRef.current.currentTime);
       setProgress(
         (audioRef.current.currentTime / audioRef.current.duration) * 100
       );
     }, 1000);
   }, [audioRef.current.currentTime]);
+
+  if (!isPlaying) {
+    clearInterval(timer);
+  }
 
   return (
     <div>
@@ -33,8 +38,8 @@ const ProgressBar = ({ audioRef, isPlaying }) => {
         className="mt-3 mb-3 w-96 flex justify-center flex-col"
       />
       <div className="time-display flex justify-between">
-        <p>{formatTime(currentTime)}</p>
-        <p>{formatTime(audioRef.current.duration)}</p>
+        <span>{formatTime(currentTime)}</span>
+        <span>{formatTime(audioRef.current.duration)}</span>
       </div>
     </div>
   );
