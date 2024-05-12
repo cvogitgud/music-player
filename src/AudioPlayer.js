@@ -21,7 +21,7 @@ function AudioPlayer() {
         </div>
         <div className="sections flex">
           <div className="info mt-5 basis-1/3">Sidebar? Other pages?</div>
-          <SongDetails currentTrack={currentTrack} />
+          <SongDetails currentTrack={currentTrack} audioRef={audioRef} />
           <TrackList />
         </div>
 

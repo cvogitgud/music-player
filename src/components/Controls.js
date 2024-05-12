@@ -71,10 +71,10 @@ const Controls = ({
 
   return (
     <div className="player basis-1/3 flex justify-center gap-2">
-      <audio src={currentTrack.src} ref={audioRef}></audio>
-
       <Stack className="w-96">
         <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
+        <p>{trackIndex}</p>
+        <p>{currentTrack.title}</p>
 
         <div className="buttons flex justify-between mt-3">
           <Button className="shuffle-button" onClick={toggleShuffle}>
