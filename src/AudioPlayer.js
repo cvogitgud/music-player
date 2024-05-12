@@ -9,8 +9,8 @@ import { tracks } from './data/tracks.js';
 
 function AudioPlayer() {
   // currently using own database of songs stored in tracks.js
-  const [currentTrack, setCurrentTrack] = useState(tracks[0]);
-
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex]);
   const audioRef = useRef(currentTrack);
 
   return (
@@ -27,7 +27,14 @@ function AudioPlayer() {
 
         <div className="sections flex align-top">
           <div className="info mt-3 basis-1/3">Blank</div>
-          <Controls currentTrack={currentTrack} audioRef={audioRef} />
+          <Controls
+            tracks={tracks}
+            trackIndex={trackIndex}
+            setTrackIndex={setTrackIndex}
+            setCurrentTrack={setCurrentTrack}
+            currentTrack={currentTrack}
+            audioRef={audioRef}
+          />
           <VolumeSlider />
         </div>
       </div>

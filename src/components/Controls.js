@@ -12,7 +12,14 @@ import {
 import { useState, useEffect } from 'react';
 import ProgressBar from './ProgressBar';
 
-const Controls = ({ currentTrack, audioRef }) => {
+const Controls = ({
+  tracks,
+  trackIndex,
+  setTrackIndex,
+  setCurrentTrack,
+  currentTrack,
+  audioRef,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [shuffleOn, setShuffleOn] = useState(false);
   const [repeatOn, setRepeatOn] = useState(false);
@@ -23,10 +30,13 @@ const Controls = ({ currentTrack, audioRef }) => {
 
   const toggleShuffle = () => {
     setShuffleOn((prev) => !prev);
+    // add in the actual shuffle logic
+    // random, exclude the one we just played? must keep track
   };
 
   const toggleRepeat = () => {
     setRepeatOn((prev) => !prev);
+    // add in actual repeat logic
   };
 
   // Play/Pause control
@@ -39,6 +49,23 @@ const Controls = ({ currentTrack, audioRef }) => {
       audioRef.current.pause();
     }
   }, [isPlaying, audioRef]);
+
+  console.log(tracks.length);
+
+  // Skip next/prev (don't forget the range/bounds)
+  const handleNext = () => {
+    if (trackIndex >= 0 && trackIndex < tracks.length - 1) {
+      setTrackIndex((prev) => prev + 1);
+      setCurrentTrack(tracks[trackIndex + 1]); // trackIndex hasn't been updated yet
+    }
+  };
+
+  const handlePrev = () => {
+    if (trackIndex > 0 && trackIndex <= tracks.length) {
+      setTrackIndex((prev) => prev - 1);
+      setCurrentTrack(tracks[trackIndex - 1]);
+    }
+  };
 
   // add repeat and shuffle!
 
@@ -53,13 +80,13 @@ const Controls = ({ currentTrack, audioRef }) => {
           <Button className="shuffle-button" onClick={toggleShuffle}>
             {shuffleOn ? <ShuffleOn /> : <Shuffle />}
           </Button>
-          <Button>
+          <Button onClick={handlePrev}>
             <SkipPrevious />
           </Button>
           <Button className="play-button" onClick={togglePlayPause}>
             {isPlaying ? <Pause /> : <PlayArrow />}
           </Button>
-          <Button>
+          <Button onClick={handleNext}>
             <SkipNext />
           </Button>
           <Button className="repeat-button" onClick={toggleRepeat}>
