@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { LinearProgress, Slider } from '@mui/material/';
 
 const ProgressBar = ({ audioRef, isPlaying }) => {
@@ -26,27 +26,18 @@ const ProgressBar = ({ audioRef, isPlaying }) => {
     }, 1000);
   }, [audioRef.current.currentTime]);
 
-  if (!isPlaying) {
-    clearInterval(timer);
-  }
-
   const handleChange = (event, value) => {
+    clearInterval(timer);
     setCurrentTime((value / 100) * audioRef.current.duration);
     audioRef.current.currentTime = currentTime;
-    clearInterval(timer);
     setProgress(value);
   };
 
   return (
     <div>
-      {/* <LinearProgress
-        variant="determinate"
-        value={progress}
-        className="mt-3 mb-3 w-96 flex justify-center flex-col"
-      /> */}
       <Slider
         size="small"
-        value={progress}
+        value={progress || 0}
         onChange={handleChange}
         className="w-96 flex justify-center flex-col"
       />
