@@ -46,32 +46,43 @@ const Controls = ({
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
+      console.log('should be true:', isPlaying);
     } else {
       audioRef.current.pause();
+      console.log('should be false:', isPlaying);
     }
-  }, [isPlaying, audioRef]);
+  }, [isPlaying]);
 
   // Skip next/prev (don't forget the range/bounds)
   const handleNext = () => {
-    if (trackIndex >= 0 && trackIndex < tracks.length - 1) {
+    if (trackIndex === tracks.length - 1) {
+      setTrackIndex(0);
+      setCurrentTrack(tracks[0]);
+    } else if (trackIndex >= 0 && trackIndex < tracks.length - 1) {
       setTrackIndex((prev) => prev + 1);
       setCurrentTrack(tracks[trackIndex + 1]); // trackIndex hasn't been updated yet
-      setIsPlaying(false);
     }
+    setIsPlaying(true);
   };
 
   const handlePrev = () => {
-    if (trackIndex > 0 && trackIndex <= tracks.length) {
+    if (trackIndex === 0) {
+      setTrackIndex(tracks.length - 1);
+      setCurrentTrack(tracks[tracks.length - 1]);
+    } else if (trackIndex > 0 && trackIndex <= tracks.length - 1) {
       setTrackIndex((prev) => prev - 1);
       setCurrentTrack(tracks[trackIndex - 1]);
-      setIsPlaying(false);
     }
+    setIsPlaying(true);
   };
 
   // add repeat and shuffle!
 
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
+    if (isPlaying) {
+      audioRef.current.play();
+    }
   };
 
   return (
@@ -82,7 +93,6 @@ const Controls = ({
         onLoadedMetadata={onLoadedMetadata}></audio>
       <Stack className="w-96">
         <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
-        {trackIndex}
 
         <div className="buttons flex justify-between mt-3">
           <Button className="shuffle-button" onClick={toggleShuffle}>
