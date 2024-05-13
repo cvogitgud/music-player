@@ -23,6 +23,7 @@ const Controls = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [shuffleOn, setShuffleOn] = useState(false);
   const [repeatOn, setRepeatOn] = useState(false);
+  const [duration, setDuration] = useState(0);
 
   const togglePlayPause = () => {
     setIsPlaying((prev) => !prev);
@@ -50,8 +51,6 @@ const Controls = ({
     }
   }, [isPlaying, audioRef]);
 
-  console.log(tracks.length);
-
   // Skip next/prev (don't forget the range/bounds)
   const handleNext = () => {
     if (trackIndex >= 0 && trackIndex < tracks.length - 1) {
@@ -71,10 +70,19 @@ const Controls = ({
 
   // add repeat and shuffle!
 
+  const onLoadedMetadata = () => {
+    setDuration(audioRef.current.duration);
+  };
+
   return (
     <div className="player basis-1/3 flex justify-center gap-2">
+      <audio
+        src={currentTrack.src}
+        ref={audioRef}
+        onLoadedMetadata={onLoadedMetadata}></audio>
       <Stack className="w-96">
         <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
+        {trackIndex}
 
         <div className="buttons flex justify-between mt-3">
           <Button className="shuffle-button" onClick={toggleShuffle}>

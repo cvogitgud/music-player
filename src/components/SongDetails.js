@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
-const SongDetails = ({ currentTrack, audioRef }) => {
+const SongDetails = ({ currentTrack }) => {
   return (
     <div className="SongDetails flex justify-center mt-7 basis-1/3">
-      <audio src={currentTrack.src} ref={audioRef}></audio>
       <div>
         <img
           src={currentTrack.thumbnail}
