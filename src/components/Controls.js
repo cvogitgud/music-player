@@ -46,12 +46,10 @@ const Controls = ({
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
-      console.log('should be true:', isPlaying);
     } else {
       audioRef.current.pause();
-      console.log('should be false:', isPlaying);
     }
-  }, [isPlaying]);
+  }, [isPlaying, audioRef]);
 
   // Skip next/prev (don't forget the range/bounds)
   const handleNext = () => {
@@ -85,12 +83,17 @@ const Controls = ({
     }
   };
 
+  const onEnded = () => {
+    handleNext();
+  };
+
   return (
     <div className="player basis-1/3 flex justify-center gap-2">
       <audio
         src={currentTrack.src}
         ref={audioRef}
-        onLoadedMetadata={onLoadedMetadata}></audio>
+        onLoadedMetadata={onLoadedMetadata}
+        onEnded={onEnded}></audio>
       <Stack className="w-96">
         <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
 
