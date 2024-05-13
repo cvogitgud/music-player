@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { LinearProgress, Slider } from '@mui/material/';
 
-const ProgressBar = ({ audioRef, isPlaying }) => {
+const ProgressBar = ({ audioRef }) => {
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 

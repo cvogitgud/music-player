@@ -35,7 +35,7 @@ function AudioPlayer() {
             currentTrack={currentTrack}
             audioRef={audioRef}
           />
-          <VolumeSlider />
+          <VolumeSlider audioRef={audioRef} />
         </div>
       </div>
     </div>
