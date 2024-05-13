@@ -25,24 +25,36 @@ const Controls = ({
   const [repeatOn, setRepeatOn] = useState(false);
   const [duration, setDuration] = useState(0);
 
+  const onLoadedMetadata = () => {
+    setDuration(audioRef.current.duration);
+    if (isPlaying) {
+      audioRef.current.play();
+    }
+  };
+
+  const onEnded = () => {
+    if (!repeatOn) {
+      handleNext();
+    } else {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+  };
+
+  // Toggles
   const togglePlayPause = () => {
     setIsPlaying((prev) => !prev);
   };
 
   const toggleShuffle = () => {
     setShuffleOn((prev) => !prev);
-    // add in the actual shuffle logic
-    // random, exclude the one we just played? must keep track
   };
 
   const toggleRepeat = () => {
     setRepeatOn((prev) => !prev);
-    // add in actual repeat logic
   };
 
-  // Play/Pause control
-  // notes for myself:
-  // we are using useEffect to WATCH for changes to isPlaying and to create an EFFECT based off the value (play or pause)
+  // Play/Pause
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
@@ -51,7 +63,7 @@ const Controls = ({
     }
   }, [isPlaying, audioRef]);
 
-  // Skip next/prev (don't forget the range/bounds)
+  // Skip next/prev
   const handleNext = () => {
     if (trackIndex === tracks.length - 1) {
       setTrackIndex(0);
@@ -72,19 +84,6 @@ const Controls = ({
       setCurrentTrack(tracks[trackIndex - 1]);
     }
     setIsPlaying(true);
-  };
-
-  // add repeat and shuffle!
-
-  const onLoadedMetadata = () => {
-    setDuration(audioRef.current.duration);
-    if (isPlaying) {
-      audioRef.current.play();
-    }
-  };
-
-  const onEnded = () => {
-    handleNext();
   };
 
   return (
