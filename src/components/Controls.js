@@ -57,6 +57,7 @@ const Controls = ({
     if (trackIndex >= 0 && trackIndex < tracks.length - 1) {
       setTrackIndex((prev) => prev + 1);
       setCurrentTrack(tracks[trackIndex + 1]); // trackIndex hasn't been updated yet
+      setIsPlaying(false);
     }
   };
 
@@ -64,6 +65,7 @@ const Controls = ({
     if (trackIndex > 0 && trackIndex <= tracks.length) {
       setTrackIndex((prev) => prev - 1);
       setCurrentTrack(tracks[trackIndex - 1]);
+      setIsPlaying(false);
     }
   };
 
@@ -73,8 +75,6 @@ const Controls = ({
     <div className="player basis-1/3 flex justify-center gap-2">
       <Stack className="w-96">
         <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
-        <p>{trackIndex}</p>
-        <p>{currentTrack.title}</p>
 
         <div className="buttons flex justify-between mt-3">
           <Button className="shuffle-button" onClick={toggleShuffle}>
