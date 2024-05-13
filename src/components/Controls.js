@@ -24,6 +24,7 @@ const Controls = ({
   const [shuffleOn, setShuffleOn] = useState(false);
   const [repeatOn, setRepeatOn] = useState(false);
   const [duration, setDuration] = useState(0);
+  const [randomTrackIndex, setRandomTrackIndex] = useState(0);
 
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
@@ -48,6 +49,11 @@ const Controls = ({
 
   const toggleShuffle = () => {
     setShuffleOn((prev) => !prev);
+    let myNum = 0;
+    while (myNum === trackIndex) {
+      myNum = Math.floor(Math.random() * tracks.length + 1);
+    }
+    setRandomTrackIndex(myNum);
   };
 
   const toggleRepeat = () => {
@@ -65,12 +71,17 @@ const Controls = ({
 
   // Skip next/prev
   const handleNext = () => {
-    if (trackIndex === tracks.length - 1) {
-      setTrackIndex(0);
-      setCurrentTrack(tracks[0]);
-    } else if (trackIndex >= 0 && trackIndex < tracks.length - 1) {
-      setTrackIndex((prev) => prev + 1);
-      setCurrentTrack(tracks[trackIndex + 1]); // trackIndex hasn't been updated yet
+    if (shuffleOn) {
+      setTrackIndex(randomTrackIndex);
+      setCurrentTrack(tracks[randomTrackIndex]);
+    } else {
+      if (trackIndex === tracks.length - 1) {
+        setTrackIndex(0);
+        setCurrentTrack(tracks[0]);
+      } else if (trackIndex >= 0 && trackIndex < tracks.length - 1) {
+        setTrackIndex((prev) => prev + 1);
+        setCurrentTrack(tracks[trackIndex + 1]); // trackIndex hasn't been updated yet
+      }
     }
     setIsPlaying(true);
   };
