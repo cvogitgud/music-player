@@ -14,11 +14,23 @@ export const tracks = [
     src: raw,
     thumbnail: raw_thumbnail,
     artist: 'Victoria Justice',
+    id: '1',
   },
   {
     title: 'in your arms.',
     src: inyourarms,
     thumbnail: thegardenofwords,
     artist: 'saib',
+    id: '2',
+  },
+  {
+    title: 'Million Dollar Baby',
+    artist: 'Tommy Richman',
+    id: '3',
+  },
+  {
+    title: 'Slow Dancing in a Burning Room',
+    artist: 'John Mayer',
+    id: '4',
   },
 ];

@@ -11,7 +11,18 @@ function AudioPlayer() {
   // currently using own database of songs stored in tracks.js
   const [trackIndex, setTrackIndex] = useState(0);
   const [currentTrack, setCurrentTrack] = useState(tracks[trackIndex]);
-  const audioRef = useRef(currentTrack);
+  const [queue, setQueue] = useState([]);
+  const audioRef = useRef(currentTrack); // maybe this shouldn't be set to currentTrack, wrong elem
+  const controlsRef = useRef();
+
+  // make sure all indices in the queue are UNIQUE
+  tracks.forEach((track) => {
+    let randomInt = 0;
+    do {
+      randomInt = Math.floor(Math.random() * 4);
+    } while (queue.includes(randomInt));
+    queue.push(randomInt);
+  });
 
   return (
     <div className="App">
@@ -22,7 +33,7 @@ function AudioPlayer() {
         <div className="sections flex">
           <div className="info mt-5 basis-1/3">Sidebar? Other pages?</div>
           <SongDetails currentTrack={currentTrack} audioRef={audioRef} />
-          <TrackList />
+          <TrackList tracks={tracks} queue={queue} />
         </div>
 
         <div className="sections flex align-top">
@@ -34,6 +45,7 @@ function AudioPlayer() {
             setCurrentTrack={setCurrentTrack}
             currentTrack={currentTrack}
             audioRef={audioRef}
+            controlsRef={controlsRef}
           />
           <VolumeSlider audioRef={audioRef} />
         </div>
