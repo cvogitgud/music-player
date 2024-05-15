@@ -1,23 +1,23 @@
 // display the tracklist/queue
-// for it to be a queue, you'd have to see into the future
-// so shuffle would actually not just choose random for next track
-// it would have to randomize a separate Queue
-
-// so instead of tracks, i may have to create a queue in AudioPlayer
-// then pass the queue to Tracklist, then display that
-// every time we shuffle, it would re-render the queue
-
-// will need more tracks
-// add firebase before or after we do that?
-// let's choose after, i think i can bang the shuffle and queue out soon
+// queue is meant to be full of ints (track indices)
+// if shuffleOn, queue is shuffled in AudioPlayer
+// else, queue contains ints from 0 to tracks.length - 1
 
 const TrackList = ({ tracks, queue }) => {
+  let count = 0;
+
   return (
     <div id="track-list-div" className="basis-1/3 mt-5">
-      <p>Track list</p>
+      <h2 className="text-3xl border-solid mb-3">Track List</h2>
       <div id="queue">
-        {queue.map((index) => (
-          <p>{tracks[index].title}</p>
+        {/* {queue.map((index) => (
+          <p key={tracks[index].id}>{tracks[index].title}</p>
+        ))} */}
+        {tracks.map((track) => (
+          <div className="flex rounded border-solid border border-slate-500/10 shadow-md p-2 pl-3 mb-3 mr-5 w-30">
+            <p className="mr-5">{++count}</p>
+            <p key={track.id}>{track.title}</p>
+          </div>
         ))}
       </div>
     </div>
