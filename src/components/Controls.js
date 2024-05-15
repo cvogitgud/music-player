@@ -26,6 +26,7 @@ const Controls = ({
   const [repeatOn, setRepeatOn] = useState(false);
   const [duration, setDuration] = useState(0);
 
+  // Events
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
     if (isPlaying) {
@@ -40,6 +41,14 @@ const Controls = ({
       audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
+  };
+
+  const onPause = () => {
+    setIsPlaying(false);
+  };
+
+  const onPlay = () => {
+    setIsPlaying(true);
   };
 
   // Toggles
@@ -98,7 +107,9 @@ const Controls = ({
         src={currentTrack.src}
         ref={audioRef}
         onLoadedMetadata={onLoadedMetadata}
-        onEnded={onEnded}></audio>
+        onEnded={onEnded}
+        onPause={onPause}
+        onPlay={onPlay}></audio>
       <Stack className="w-96">
         <ProgressBar audioRef={audioRef} isPlaying={isPlaying} />
 

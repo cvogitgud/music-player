@@ -33,7 +33,7 @@ function AudioPlayer() {
   return (
     <div className="App">
       <div className="content">
-        <div className="title text-6xl pt-7 mb-4 flex justify-center">
+        <div className="title text-6xl pt-7 pb-4 flex justify-center bg-slate-500/40">
           Walrus Jams
         </div>
         <div className="flex justify-center opacity-50">
