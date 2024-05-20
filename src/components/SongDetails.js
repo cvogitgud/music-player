@@ -6,7 +6,7 @@ const SongDetails = ({ currentTrack }) => {
       <div>
         <img
           src={currentTrack.thumbnail}
-          alt="garden of words"
+          alt="track art"
           className="track-art size-96 object-cover shadow-xl rounded"
         />
 
